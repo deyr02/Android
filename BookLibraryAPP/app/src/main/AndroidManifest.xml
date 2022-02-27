@@ -10,10 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookLabraryAPP">
         <activity
-            android:name=".AddActivity"
-            android:label="Add Book"
+            android:name=".UpdateActivity"
+            android:exported="false"
+            android:label="Update Activity"
             android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            />
+        <activity
+            android:name=".AddActivity"
+            android:exported="false"
+            android:label="Add Book"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

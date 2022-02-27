@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
@@ -74,7 +75,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         if(db != null){
             cursor = db.rawQuery(query, null);
+
         }
+
         return  cursor;
+    }
+
+    void UpdateData(String row_id, String title, String author, String pages){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put (COLUMN_TITLE, title);
+        cv.put (COLUMN_AUTHOR, author);
+        cv.put (COLUMN_PAGES, pages);
+
+       long Result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
+       if(Result == -1){
+           Toast.makeText(context, "Failed to update.", Toast.LENGTH_SHORT).show();
+       }else {
+           Toast.makeText(context, "Updated successfully.", Toast.LENGTH_SHORT).show();
+
+       }
     }
 }
