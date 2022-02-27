@@ -1,14 +1,16 @@
 package com.example.booklabraryapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    private  Context context;
+    private final Context context;
     private  static  final  String DATABASE_NAME = "BOOKLibrary.db";
     private  static  final  int DATABASE_VERSION = 1;
 
@@ -27,7 +29,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME +
-                " ("+ COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " ("+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_AUTHOR + " TEXT, " +
                 COLUMN_PAGES + " INTEGER);";
@@ -38,5 +40,33 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME );
         onCreate(db);
+    }
+
+    void  AddBook(String title, String author, int pages){
+
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            ContentValues cv = new ContentValues();
+
+            cv.put(COLUMN_TITLE, title);
+            cv.put(COLUMN_AUTHOR, author);
+            cv.put(COLUMN_PAGES, pages);
+
+            long result = db.insert(TABLE_NAME, null, cv);
+
+            if(result == -1){
+                Toast.makeText(context, "Failed to add Book.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(context, "Book  has been added successfully.", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
+
     }
 }
