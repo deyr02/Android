@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+
+import javax.xml.transform.Result;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
@@ -95,5 +98,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
            Toast.makeText(context, "Updated successfully.", Toast.LENGTH_SHORT).show();
 
        }
+    }
+
+    void  DeleteOneRow(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+       long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
+        if (result == -1){
+            Toast.makeText(context, "Failed to Delete", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();;
+        }
+    }
+
+    void DeleteAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME);
     }
 }
