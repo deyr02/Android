@@ -11,4 +11,7 @@ Splash Screen of an Android app.
 
 ##### https://www.youtube.com/watch?v=hJPk50p7xwA
 
+### Alarm Manager
+##### https://www.youtube.com/watch?v=xSrVWFCtgaE
+
 
